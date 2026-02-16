@@ -9,6 +9,7 @@ import '../features/category/providers/category_provider.dart';
 import '../features/category/models/category.dart';
 import '../shared/widgets/widgets.dart';
 import '../l10n/app_localizations.dart';
+import '../core/utils/localization_utils.dart';
 
 enum TimeRange { week, month, year, custom }
 
@@ -31,9 +32,10 @@ class StatsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       backgroundColor: AppColors.backgroundOf(context),
-      appBar: const CommonAppBar(title: '数据统计', showBackButton: false),
+      appBar: CommonAppBar(title: l10n.stats, showBackButton: false),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -55,6 +57,20 @@ class StatsScreen extends ConsumerWidget {
 
 class _TimeRangeSelector extends ConsumerWidget {
   const _TimeRangeSelector();
+
+  String _getLabel(BuildContext context, TimeRange range) {
+    final l10n = AppLocalizations.of(context)!;
+    switch (range) {
+      case TimeRange.week:
+        return l10n.weekAbbr;
+      case TimeRange.month:
+        return l10n.monthAbbr;
+      case TimeRange.year:
+        return l10n.yearAbbr;
+      case TimeRange.custom:
+        return l10n.custom;
+    }
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -109,7 +125,7 @@ class _TimeRangeSelector extends ConsumerWidget {
                           : null,
                     ),
                     child: Text(
-                      _getLabel(range),
+                      _getLabel(context, range),
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: isSelected
@@ -140,19 +156,6 @@ class _TimeRangeSelector extends ConsumerWidget {
           ),
       ],
     );
-  }
-
-  String _getLabel(TimeRange range) {
-    switch (range) {
-      case TimeRange.week:
-        return '周';
-      case TimeRange.month:
-        return '月';
-      case TimeRange.year:
-        return '年';
-      case TimeRange.custom:
-        return '自定义';
-    }
   }
 
   Future<(DateTime, DateTime)?> _showDateRangePicker(
@@ -278,6 +281,7 @@ class _SummaryCards extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     final timeRange = ref.watch(timeRangeProvider);
     final customStart = ref.watch(customStartDateProvider);
     final customEnd = ref.watch(customEndDateProvider);
@@ -302,21 +306,21 @@ class _SummaryCards extends ConsumerWidget {
           children: [
             _buildSummaryCard(
               context,
-              "总收入",
+              l10n.totalIncome,
               "¥${_formatAmount(summary.income)}",
               AppColors.emerald,
             ),
             const SizedBox(width: 12),
             _buildSummaryCard(
               context,
-              "总支出",
+              l10n.totalExpense,
               "¥${_formatAmount(summary.expense)}",
               AppColors.rose,
             ),
             const SizedBox(width: 12),
             _buildSummaryCard(
               context,
-              "净收入",
+              l10n.netIncome,
               "¥${_formatAmount(summary.net)}",
               AppColors.textMainOf(context),
             ),
@@ -325,28 +329,48 @@ class _SummaryCards extends ConsumerWidget {
       },
       loading: () => Row(
         children: [
-          _buildSummaryCard(context, "总收入", "加载中...", AppColors.emerald),
-          const SizedBox(width: 12),
-          _buildSummaryCard(context, "总支出", "加载中...", AppColors.rose),
+          _buildSummaryCard(
+            context,
+            l10n.totalIncome,
+            l10n.loading,
+            AppColors.emerald,
+          ),
           const SizedBox(width: 12),
           _buildSummaryCard(
             context,
-            "净收入",
-            "加载中...",
+            l10n.totalExpense,
+            l10n.loading,
+            AppColors.rose,
+          ),
+          const SizedBox(width: 12),
+          _buildSummaryCard(
+            context,
+            l10n.netIncome,
+            l10n.loading,
             AppColors.textMainOf(context),
           ),
         ],
       ),
       error: (e, _) => Row(
         children: [
-          _buildSummaryCard(context, "总收入", "错误", AppColors.emerald),
-          const SizedBox(width: 12),
-          _buildSummaryCard(context, "总支出", "错误", AppColors.rose),
+          _buildSummaryCard(
+            context,
+            l10n.totalIncome,
+            l10n.error,
+            AppColors.emerald,
+          ),
           const SizedBox(width: 12),
           _buildSummaryCard(
             context,
-            "净收入",
-            "错误",
+            l10n.totalExpense,
+            l10n.error,
+            AppColors.rose,
+          ),
+          const SizedBox(width: 12),
+          _buildSummaryCard(
+            context,
+            l10n.netIncome,
+            l10n.error,
             AppColors.textMainOf(context),
           ),
         ],
@@ -466,8 +490,23 @@ class _ChartSection extends ConsumerWidget {
     }
   }
 
+  String _getTrendLabel(BuildContext context, TimeRange timeRange) {
+    final l10n = AppLocalizations.of(context)!;
+    switch (timeRange) {
+      case TimeRange.week:
+        return l10n.thisWeek;
+      case TimeRange.month:
+        return l10n.thisMonth;
+      case TimeRange.year:
+        return l10n.thisYear;
+      case TimeRange.custom:
+        return l10n.custom;
+    }
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     final timeRange = ref.watch(timeRangeProvider);
     final dataType = ref.watch(chartDataTypeProvider);
     final customStart = ref.watch(customStartDateProvider);
@@ -501,41 +540,48 @@ class _ChartSection extends ConsumerWidget {
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    "账单趋势 (${_getTrendLabel(timeRange)})",
-                    style: TextStyle(
-                      color: AppColors.textSecOf(context),
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
+                  Expanded(
+                    child: Text(
+                      "${l10n.billingTrend} (${_getTrendLabel(context, timeRange)})",
+                      style: TextStyle(
+                        color: AppColors.textSecOf(context),
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
-                  Row(
-                    children: [
-                      _buildDataTypeChip(
-                        context,
-                        ref,
-                        ChartDataType.income,
-                        "收入",
-                        primaryColor,
-                      ),
-                      const SizedBox(width: 8),
-                      _buildDataTypeChip(
-                        context,
-                        ref,
-                        ChartDataType.expense,
-                        "支出",
-                        AppColors.rose,
-                      ),
-                      const SizedBox(width: 8),
-                      _buildDataTypeChip(
-                        context,
-                        ref,
-                        ChartDataType.net,
-                        "净收入",
-                        Colors.white,
-                      ),
-                    ],
+                  const SizedBox(width: 8),
+                  Flexible(
+                    child: Wrap(
+                      alignment: WrapAlignment.end,
+                      spacing: 8,
+                      children: [
+                        _buildDataTypeChip(
+                          context,
+                          ref,
+                          ChartDataType.income,
+                          l10n.income,
+                          primaryColor,
+                        ),
+                        _buildDataTypeChip(
+                          context,
+                          ref,
+                          ChartDataType.expense,
+                          l10n.expense,
+                          AppColors.rose,
+                        ),
+                        _buildDataTypeChip(
+                          context,
+                          ref,
+                          ChartDataType.net,
+                          l10n.netIncome,
+                          Colors.white,
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -556,7 +602,7 @@ class _ChartSection extends ConsumerWidget {
                             ),
                             const SizedBox(height: 8),
                             Text(
-                              '暂无数据',
+                              l10n.noData,
                               style: TextStyle(
                                 color: AppColors.textSecOf(context),
                               ),
@@ -697,7 +743,10 @@ class _ChartSection extends ConsumerWidget {
           color: AppColors.surfaceOf(context),
           borderRadius: BorderRadius.circular(16),
         ),
-        child: SizedBox(height: 180, child: Center(child: Text('加载失败: $e'))),
+        child: SizedBox(
+          height: 180,
+          child: Center(child: Text('${l10n.loadFailed}: $e')),
+        ),
       ),
     );
   }
@@ -863,26 +912,26 @@ class _ChartSection extends ConsumerWidget {
     }
     return labels;
   }
-
-  String _getTrendLabel(TimeRange timeRange) {
-    switch (timeRange) {
-      case TimeRange.week:
-        return '本周';
-      case TimeRange.month:
-        return '本月';
-      case TimeRange.year:
-        return '本年';
-      case TimeRange.custom:
-        return '自定义';
-    }
-  }
 }
 
 class _RankingSection extends ConsumerWidget {
   const _RankingSection();
 
+  String _getRankingLabel(BuildContext context, RankingType type) {
+    final l10n = AppLocalizations.of(context)!;
+    switch (type) {
+      case RankingType.category:
+        return l10n.categoryRanking;
+      case RankingType.dailyExpense:
+        return l10n.dailyExpenseRanking;
+      case RankingType.dailyIncome:
+        return l10n.dailyIncomeRanking;
+    }
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     final rankingType = ref.watch(rankingTypeProvider);
     final primaryColor = ref.watch(themeColorProvider);
     final isDark = Theme.of(context).brightness == Brightness.dark;
@@ -895,7 +944,7 @@ class _RankingSection extends ConsumerWidget {
             Icon(Icons.leaderboard, color: primaryColor, size: 24),
             const SizedBox(width: 8),
             Text(
-              "账单排行",
+              l10n.billingRanking,
               style: TextStyle(
                 color: AppColors.textMainOf(context),
                 fontSize: 18,
@@ -929,7 +978,7 @@ class _RankingSection extends ConsumerWidget {
                     ),
                     padding: const EdgeInsets.only(bottom: 8),
                     child: Text(
-                      _getRankingLabel(type),
+                      _getRankingLabel(context, type),
                       style: TextStyle(
                         color: isSelected
                             ? primaryColor
@@ -958,17 +1007,6 @@ class _RankingSection extends ConsumerWidget {
       ],
     );
   }
-
-  String _getRankingLabel(RankingType type) {
-    switch (type) {
-      case RankingType.category:
-        return "类别排行";
-      case RankingType.dailyExpense:
-        return "日支出排行";
-      case RankingType.dailyIncome:
-        return "日收入排行";
-    }
-  }
 }
 
 class _RankingList extends ConsumerWidget {
@@ -978,6 +1016,7 @@ class _RankingList extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     final timeRange = ref.watch(timeRangeProvider);
     final customStart = ref.watch(customStartDateProvider);
     final customEnd = ref.watch(customEndDateProvider);
@@ -1011,7 +1050,7 @@ class _RankingList extends ConsumerWidget {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    '暂无数据',
+                    l10n.noData,
                     style: TextStyle(color: AppColors.textSecOf(context)),
                   ),
                 ],
@@ -1024,18 +1063,19 @@ class _RankingList extends ConsumerWidget {
           case RankingType.category:
             return categoriesAsync.when(
               data: (categories) =>
-                  _buildCategoryRanking(context, filtered, categories),
+                  _buildCategoryRanking(context, l10n, filtered, categories),
               loading: () => const Center(child: CircularProgressIndicator()),
-              error: (e, _) => Center(child: Text('加载分类失败: $e')),
+              error: (e, _) =>
+                  Center(child: Text('${l10n.loadCategoriesFailed}: $e')),
             );
           case RankingType.dailyExpense:
-            return _buildDailyRanking(context, filtered, 'expense');
+            return _buildDailyRanking(context, l10n, filtered, 'expense');
           case RankingType.dailyIncome:
-            return _buildDailyRanking(context, filtered, 'income');
+            return _buildDailyRanking(context, l10n, filtered, 'income');
         }
       },
       loading: () => const Center(child: CircularProgressIndicator()),
-      error: (e, _) => Center(child: Text('加载失败: $e')),
+      error: (e, _) => Center(child: Text('${l10n.loadFailed}: $e')),
     );
   }
 
@@ -1075,6 +1115,7 @@ class _RankingList extends ConsumerWidget {
 
   Widget _buildCategoryRanking(
     BuildContext context,
+    AppLocalizations l10n,
     List<dynamic> transactions,
     List<Category> categories,
   ) {
@@ -1095,7 +1136,7 @@ class _RankingList extends ConsumerWidget {
         child: Padding(
           padding: const EdgeInsets.all(32),
           child: Text(
-            '暂无支出数据',
+            l10n.noExpenseData,
             style: TextStyle(color: AppColors.textSecOf(context)),
           ),
         ),
@@ -1113,7 +1154,7 @@ class _RankingList extends ConsumerWidget {
           (c) => c.id == categoryId,
           orElse: () => Category(
             id: categoryId,
-            name: '未知',
+            name: l10n.unknown,
             icon: 'help',
             type: 'expense',
           ),
@@ -1123,7 +1164,7 @@ class _RankingList extends ConsumerWidget {
         return _buildRankingItem(
           context,
           index + 1,
-          category.name,
+          LocalizationUtils.getLocalizedCategoryName(context, category),
           amount,
           percent,
           _getCategoryColor(index),
@@ -1135,6 +1176,7 @@ class _RankingList extends ConsumerWidget {
 
   Widget _buildDailyRanking(
     BuildContext context,
+    AppLocalizations l10n,
     List<dynamic> transactions,
     String type,
   ) {
@@ -1155,7 +1197,7 @@ class _RankingList extends ConsumerWidget {
         child: Padding(
           padding: const EdgeInsets.all(32),
           child: Text(
-            type == 'expense' ? '暂无支出数据' : '暂无收入数据',
+            type == 'expense' ? l10n.noExpenseData : l10n.noIncomeData,
             style: TextStyle(color: AppColors.textSecOf(context)),
           ),
         ),

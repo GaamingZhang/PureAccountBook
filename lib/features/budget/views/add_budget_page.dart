@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/config/app_config.dart';
 import '../../../providers/theme_provider.dart';
+import '../../../l10n/app_localizations.dart';
 import '../providers/monthly_budget_provider.dart';
 
 class AddBudgetPage extends ConsumerStatefulWidget {
@@ -45,12 +46,13 @@ class _AddBudgetPageState extends ConsumerState<AddBudgetPage> {
   }
 
   Future<void> _saveBudget() async {
+    final l10n = AppLocalizations.of(context)!;
     if (_amount.isEmpty ||
         double.tryParse(_amount) == null ||
         double.parse(_amount) <= 0) {
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(const SnackBar(content: Text('请输入有效金额')));
+      ).showSnackBar(SnackBar(content: Text(l10n.pleaseEnterValidAmount)));
       return;
     }
 
@@ -67,7 +69,7 @@ class _AddBudgetPageState extends ConsumerState<AddBudgetPage> {
       if (mounted) {
         ScaffoldMessenger.of(
           context,
-        ).showSnackBar(SnackBar(content: Text('保存失败: $e')));
+        ).showSnackBar(SnackBar(content: Text('${l10n.saveFailed}: $e')));
       }
     } finally {
       if (mounted) {
@@ -77,29 +79,33 @@ class _AddBudgetPageState extends ConsumerState<AddBudgetPage> {
   }
 
   Future<void> _deleteBudget() async {
+    final l10n = AppLocalizations.of(context)!;
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (dialogContext) => AlertDialog(
         backgroundColor: AppColors.surfaceOf(dialogContext),
         title: Text(
-          '清除预算',
+          l10n.clearBudget,
           style: TextStyle(color: AppColors.textMainOf(dialogContext)),
         ),
         content: Text(
-          '确定要清除本月预算吗？',
+          l10n.confirmClear,
           style: TextStyle(color: AppColors.textSecOf(dialogContext)),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(dialogContext, false),
             child: Text(
-              '取消',
+              l10n.cancel,
               style: TextStyle(color: AppColors.textSecOf(dialogContext)),
             ),
           ),
           TextButton(
             onPressed: () => Navigator.pop(dialogContext, true),
-            child: const Text('确定', style: TextStyle(color: AppColors.rose)),
+            child: Text(
+              l10n.confirm,
+              style: const TextStyle(color: AppColors.rose),
+            ),
           ),
         ],
       ),
@@ -113,9 +119,10 @@ class _AddBudgetPageState extends ConsumerState<AddBudgetPage> {
         }
       } catch (e) {
         if (mounted) {
+          final l10n = AppLocalizations.of(context)!;
           ScaffoldMessenger.of(
             context,
-          ).showSnackBar(SnackBar(content: Text('删除失败: $e')));
+          ).showSnackBar(SnackBar(content: Text('${l10n.deleteFailed}: $e')));
         }
       }
     }
@@ -123,7 +130,8 @@ class _AddBudgetPageState extends ConsumerState<AddBudgetPage> {
 
   @override
   Widget build(BuildContext context) {
-    final monthText = '${widget.month.year}年${widget.month.month}月';
+    final l10n = AppLocalizations.of(context)!;
+    final monthText = l10n.monthBudget(widget.month.month.toString());
     final isEditing = widget.initialAmount != null && widget.initialAmount! > 0;
     final primaryColor = ref.watch(themeColorProvider);
 
@@ -165,7 +173,7 @@ class _AddBudgetPageState extends ConsumerState<AddBudgetPage> {
                       onPressed: () => Navigator.of(context).pop(),
                     ),
                     Text(
-                      isEditing ? '编辑预算' : '设置预算',
+                      isEditing ? l10n.editBudget : l10n.setBudget,
                       style: TextStyle(
                         color: AppColors.textMainOf(context),
                         fontSize: 18,
@@ -188,7 +196,7 @@ class _AddBudgetPageState extends ConsumerState<AddBudgetPage> {
               ),
               const SizedBox(height: 16),
               Text(
-                "预算金额",
+                l10n.budgetAmount,
                 style: TextStyle(
                   color: AppColors.textSecOf(context),
                   fontSize: 14,
@@ -242,7 +250,11 @@ class _AddBudgetPageState extends ConsumerState<AddBudgetPage> {
                     _buildIconKey(Icons.backspace, AppColors.rose, 'backspace'),
                     ...['4', '5', '6'].map(_buildKey),
                     if (isEditing)
-                      _buildTextKey('清除', AppColors.rose, _deleteBudget)
+                      _buildTextKey(
+                        l10n.clearBudget,
+                        AppColors.rose,
+                        _deleteBudget,
+                      )
                     else
                       const SizedBox(),
                     ...['7', '8', '9'].map(_buildKey),
@@ -266,9 +278,9 @@ class _AddBudgetPageState extends ConsumerState<AddBudgetPage> {
                                   color: Colors.white,
                                 ),
                               )
-                            : const Text(
-                                "确认",
-                                style: TextStyle(
+                            : Text(
+                                l10n.confirm,
+                                style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,

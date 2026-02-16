@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/config/app_config.dart';
 import '../../../providers/theme_provider.dart';
+import '../../../l10n/app_localizations.dart';
 
 class ThemeSettingsPage extends ConsumerStatefulWidget {
   const ThemeSettingsPage({super.key});
@@ -31,6 +32,7 @@ class _ThemeSettingsPageState extends ConsumerState<ThemeSettingsPage> {
   @override
   Widget build(BuildContext context) {
     final primaryColor = ref.watch(themeColorProvider);
+    final l10n = AppLocalizations.of(context)!;
     return GestureDetector(
       onVerticalDragEnd: (details) {
         if (details.primaryVelocity != null && details.primaryVelocity! > 500) {
@@ -69,7 +71,7 @@ class _ThemeSettingsPageState extends ConsumerState<ThemeSettingsPage> {
                       onPressed: () => Navigator.of(context).pop(),
                     ),
                     Text(
-                      '主题设置',
+                      l10n.themeSettings,
                       style: TextStyle(
                         color: AppColors.textMainOf(context),
                         fontSize: 18,
@@ -87,7 +89,7 @@ class _ThemeSettingsPageState extends ConsumerState<ThemeSettingsPage> {
                   children: [
                     const SizedBox(height: 16),
                     Text(
-                      '主题模式',
+                      l10n.themeMode,
                       style: TextStyle(
                         color: AppColors.textMainOf(context),
                         fontSize: 16,
@@ -103,17 +105,17 @@ class _ThemeSettingsPageState extends ConsumerState<ThemeSettingsPage> {
                       ),
                       child: Column(
                         children: [
-                          _buildThemeModeItem('跟随系统', ThemeMode.system),
+                          _buildThemeModeItem(l10n.followSystem, ThemeMode.system),
                           Divider(color: AppColors.divider(context), height: 1),
-                          _buildThemeModeItem('浅色模式', ThemeMode.light),
+                          _buildThemeModeItem(l10n.light, ThemeMode.light),
                           Divider(color: AppColors.divider(context), height: 1),
-                          _buildThemeModeItem('深色模式', ThemeMode.dark),
+                          _buildThemeModeItem(l10n.dark, ThemeMode.dark),
                         ],
                       ),
                     ),
                     const SizedBox(height: 24),
                     Text(
-                      '主题色',
+                      l10n.themeColor,
                       style: TextStyle(
                         color: AppColors.textMainOf(context),
                         fontSize: 16,
@@ -179,9 +181,9 @@ class _ThemeSettingsPageState extends ConsumerState<ThemeSettingsPage> {
                           ),
                           elevation: 0,
                         ),
-                        child: const Text(
-                          '确认',
-                          style: TextStyle(
+                        child: Text(
+                          l10n.confirm,
+                          style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
                           ),

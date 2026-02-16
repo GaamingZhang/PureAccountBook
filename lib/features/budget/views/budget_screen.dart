@@ -18,10 +18,11 @@ class BudgetScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final currentMonth = ref.watch(currentBudgetMonthProvider);
+    final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
       backgroundColor: AppColors.backgroundOf(context),
-      appBar: const CommonAppBar(title: '预算'),
+      appBar: CommonAppBar(title: l10n.budget),
       body: Consumer(
         builder: (context, ref, child) {
           final budgetState = ref.watch(monthlyBudgetProvider);
@@ -172,6 +173,7 @@ class BudgetScreen extends ConsumerWidget {
     final remaining = budgetAmount - totalSpent;
     final hasBudget = budgetAmount > 0;
     final primaryColor = ref.watch(themeColorProvider);
+    final l10n = AppLocalizations.of(context)!;
 
     return Container(
       padding: const EdgeInsets.all(24),
@@ -190,7 +192,7 @@ class BudgetScreen extends ConsumerWidget {
       child: Column(
         children: [
           Text(
-            "本月预算",
+            l10n.monthBudget(currentMonth.month.toString()),
             style: TextStyle(
               color: AppColors.textSecOf(context),
               fontSize: 14,
@@ -199,7 +201,7 @@ class BudgetScreen extends ConsumerWidget {
           ),
           const SizedBox(height: 8),
           Text(
-            hasBudget ? "¥${_formatAmount(budgetAmount)}" : "未设置",
+            hasBudget ? "¥${_formatAmount(budgetAmount)}" : l10n.noData,
             style: TextStyle(
               color: hasBudget
                   ? AppColors.textMainOf(context)
@@ -212,26 +214,28 @@ class BudgetScreen extends ConsumerWidget {
             const SizedBox(height: 24),
             _buildProgressBar(context, progress, isOverBudget, primaryColor),
             const SizedBox(height: 16),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            Wrap(
+              alignment: WrapAlignment.spaceAround,
+              spacing: 16,
+              runSpacing: 16,
               children: [
                 _buildInfoColumn(
                   context,
-                  "已支出",
+                  l10n.totalSpent,
                   "¥${_formatAmount(totalSpent)}",
                   AppColors.rose,
                 ),
                 _buildInfoColumn(
                   context,
-                  "剩余",
+                  l10n.remaining,
                   isOverBudget
-                      ? "超支 ¥${_formatAmount(-remaining)}"
+                      ? "${l10n.overBudget} ¥${_formatAmount(-remaining)}"
                       : "¥${_formatAmount(remaining)}",
                   isOverBudget ? AppColors.rose : AppColors.emerald,
                 ),
                 _buildInfoColumn(
                   context,
-                  "进度",
+                  l10n.progress,
                   "${progress.toStringAsFixed(0)}%",
                   isOverBudget ? AppColors.rose : primaryColor,
                 ),
@@ -261,7 +265,7 @@ class BudgetScreen extends ConsumerWidget {
                     ),
                     const SizedBox(width: 8),
                     Text(
-                      "已超出预算 ${(progress - 100).toStringAsFixed(0)}%",
+                      "${l10n.overBudget} ${(progress - 100).toStringAsFixed(0)}%",
                       style: const TextStyle(
                         color: AppColors.rose,
                         fontSize: 12,
@@ -274,7 +278,7 @@ class BudgetScreen extends ConsumerWidget {
           ] else ...[
             const SizedBox(height: 16),
             Text(
-              "点击下方按钮设置本月预算",
+              l10n.setBudget,
               style: TextStyle(
                 color: AppColors.textSecOf(context),
                 fontSize: 14,
@@ -294,6 +298,7 @@ class BudgetScreen extends ConsumerWidget {
   ) {
     final displayProgress = progress.clamp(0.0, 100.0);
     final color = isOverBudget ? AppColors.rose : primaryColor;
+    final l10n = AppLocalizations.of(context)!;
 
     return Column(
       children: [
@@ -301,7 +306,7 @@ class BudgetScreen extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              "支出进度",
+              l10n.progress,
               style: TextStyle(
                 color: AppColors.textSecOf(context),
                 fontSize: 12,
@@ -344,12 +349,16 @@ class BudgetScreen extends ConsumerWidget {
           style: TextStyle(color: AppColors.textSecOf(context), fontSize: 12),
         ),
         const SizedBox(height: 4),
-        Text(
-          value,
-          style: TextStyle(
-            color: valueColor,
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
+        Flexible(
+          child: Text(
+            value,
+            style: TextStyle(
+              color: valueColor,
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+            overflow: TextOverflow.ellipsis,
+            maxLines: 1,
           ),
         ),
       ],
@@ -375,7 +384,7 @@ class BudgetScreen extends ConsumerWidget {
                 context,
                 ref,
                 Icons.edit,
-                hasBudget ? "编辑预算" : "设置预算",
+                hasBudget ? l10n.editBudget : l10n.setBudget,
                 primaryColor,
                 () async {
                   final result = await showAddBudgetPage(
@@ -556,6 +565,7 @@ class BudgetScreen extends ConsumerWidget {
   }
 
   Widget _buildErrorCard(BuildContext context, String error) {
+    final l10n = AppLocalizations.of(context)!;
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
@@ -564,7 +574,7 @@ class BudgetScreen extends ConsumerWidget {
       ),
       child: Center(
         child: Text(
-          '加载失败: $error',
+          '${l10n.loadFailed}: $error',
           style: const TextStyle(color: AppColors.rose),
         ),
       ),

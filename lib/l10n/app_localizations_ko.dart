@@ -337,7 +337,9 @@ class AppLocalizationsKo extends AppLocalizations {
   String get addFirstRecord => '아래 + 버튼을 눌러 첫 번째 기록을 추가하세요';
 
   @override
-  String get monthSummary => '월간 요약';
+  String monthSummary(Object month) {
+    return '월간 요약';
+  }
 
   @override
   String get languageSettings => '언어 설정';
@@ -368,4 +370,168 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get budgetAppliedToAllMonths => '예산이 모든 달에 적용되었습니다';
+
+  @override
+  String get loadFailed => '加载失败';
+
+  @override
+  String get loadCategoriesFailed => '加载分类失败';
+
+  @override
+  String get deleteSuccess => '删除成功';
+
+  @override
+  String get deleteFailed => '删除失败';
+
+  @override
+  String get updateSuccess => '更新成功';
+
+  @override
+  String get updateFailed => '更新失败';
+
+  @override
+  String get confirmDeleteCategory => '确定要删除这个类型吗？';
+
+  @override
+  String get noCategories => '暂无类型';
+
+  @override
+  String get addSuccess => '添加成功';
+
+  @override
+  String get addFailed => '添加失败';
+
+  @override
+  String get error => '错误';
+
+  @override
+  String get chartAnalysis => '图表分析';
+
+  @override
+  String get total => '总计';
+
+  @override
+  String get maxDaily => '最高单日';
+
+  @override
+  String get billingRanking => '账单排行';
+
+  @override
+  String get categoryRanking => '类别排行';
+
+  @override
+  String get dailyExpenseRanking => '日支出排行';
+
+  @override
+  String get dailyIncomeRanking => '日收入排行';
+
+  @override
+  String get noExpenseData => '暂无支出数据';
+
+  @override
+  String get noIncomeData => '暂无收入数据';
+
+  @override
+  String get searchQuery => '搜索';
+
+  @override
+  String get recordATransaction => '记一笔';
+
+  @override
+  String get stats => '数据统计';
+
+  @override
+  String get weekAbbr => '周';
+
+  @override
+  String get monthAbbr => '月';
+
+  @override
+  String get yearAbbr => '年';
+
+  @override
+  String get netIncome => '净收入';
+
+  @override
+  String get loading => '加载中...';
+
+  @override
+  String get billingTrend => '账单趋势';
+
+  @override
+  String get unknown => '未知';
+
+  @override
+  String get searchLabel => '搜索';
+
+  @override
+  String get defaultNoteIncome => '收入';
+
+  @override
+  String get defaultNoteExpense => '支出';
+
+  @override
+  String get saveFailed => '保存失败';
+
+  @override
+  String get maxTwoDecimals => '金额最多两位小数';
+
+  @override
+  String get category_food => '餐饮';
+
+  @override
+  String get category_shopping => '购物';
+
+  @override
+  String get category_transport => '交通';
+
+  @override
+  String get category_daily => '日用';
+
+  @override
+  String get category_entertainment => '娱乐';
+
+  @override
+  String get category_medical => '医疗';
+
+  @override
+  String get category_education => '教育';
+
+  @override
+  String get category_communication => '通讯';
+
+  @override
+  String get category_clothing => '服饰';
+
+  @override
+  String get category_beauty => '美容';
+
+  @override
+  String get category_housing => '住房';
+
+  @override
+  String get category_other_expense => '其他';
+
+  @override
+  String get category_salary => '工资';
+
+  @override
+  String get category_bonus => '奖金';
+
+  @override
+  String get category_investment => '理财';
+
+  @override
+  String get category_parttime => '兼职';
+
+  @override
+  String get category_reimbursement => '报销';
+
+  @override
+  String get category_other_income => '其他';
+
+  @override
+  String monthBudget(Object month) {
+    return '$month月 预算';
+  }
 }

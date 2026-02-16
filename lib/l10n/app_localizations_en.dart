@@ -342,7 +342,9 @@ class AppLocalizationsEn extends AppLocalizations {
       'Tap the + button below to add your first record';
 
   @override
-  String get monthSummary => 'Month Summary';
+  String monthSummary(Object month) {
+    return '$month Summary';
+  }
 
   @override
   String get languageSettings => 'Language Settings';
@@ -374,4 +376,169 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get budgetAppliedToAllMonths =>
       'Budget has been applied to all months';
+
+  @override
+  String get loadFailed => 'Load failed';
+
+  @override
+  String get loadCategoriesFailed => 'Failed to load categories';
+
+  @override
+  String get deleteSuccess => 'Deleted successfully';
+
+  @override
+  String get deleteFailed => 'Delete failed';
+
+  @override
+  String get updateSuccess => 'Updated successfully';
+
+  @override
+  String get updateFailed => 'Update failed';
+
+  @override
+  String get confirmDeleteCategory =>
+      'Are you sure you want to delete this category?';
+
+  @override
+  String get noCategories => 'No categories';
+
+  @override
+  String get addSuccess => 'Added successfully';
+
+  @override
+  String get addFailed => 'Add failed';
+
+  @override
+  String get error => 'Error';
+
+  @override
+  String get chartAnalysis => 'Chart Analysis';
+
+  @override
+  String get total => 'Total';
+
+  @override
+  String get maxDaily => 'Max Daily';
+
+  @override
+  String get billingRanking => 'Billing Ranking';
+
+  @override
+  String get categoryRanking => 'Category Ranking';
+
+  @override
+  String get dailyExpenseRanking => 'Daily Expense Ranking';
+
+  @override
+  String get dailyIncomeRanking => 'Daily Income Ranking';
+
+  @override
+  String get noExpenseData => 'No expense data';
+
+  @override
+  String get noIncomeData => 'No income data';
+
+  @override
+  String get searchQuery => 'Search';
+
+  @override
+  String get recordATransaction => 'Record Transaction';
+
+  @override
+  String get stats => 'Statistics';
+
+  @override
+  String get weekAbbr => 'Week';
+
+  @override
+  String get monthAbbr => 'Month';
+
+  @override
+  String get yearAbbr => 'Year';
+
+  @override
+  String get netIncome => 'Net Income';
+
+  @override
+  String get loading => 'Loading...';
+
+  @override
+  String get billingTrend => 'Billing Trend';
+
+  @override
+  String get unknown => 'Unknown';
+
+  @override
+  String get searchLabel => 'Search';
+
+  @override
+  String get defaultNoteIncome => 'Income';
+
+  @override
+  String get defaultNoteExpense => 'Expense';
+
+  @override
+  String get saveFailed => 'Save failed';
+
+  @override
+  String get maxTwoDecimals => 'Amount can have at most two decimal places';
+
+  @override
+  String get category_food => 'Food';
+
+  @override
+  String get category_shopping => 'Shopping';
+
+  @override
+  String get category_transport => 'Transport';
+
+  @override
+  String get category_daily => 'Daily';
+
+  @override
+  String get category_entertainment => 'Entertainment';
+
+  @override
+  String get category_medical => 'Medical';
+
+  @override
+  String get category_education => 'Education';
+
+  @override
+  String get category_communication => 'Communication';
+
+  @override
+  String get category_clothing => 'Clothing';
+
+  @override
+  String get category_beauty => 'Beauty';
+
+  @override
+  String get category_housing => 'Housing';
+
+  @override
+  String get category_other_expense => 'Other';
+
+  @override
+  String get category_salary => 'Salary';
+
+  @override
+  String get category_bonus => 'Bonus';
+
+  @override
+  String get category_investment => 'Investment';
+
+  @override
+  String get category_parttime => 'Part-time';
+
+  @override
+  String get category_reimbursement => 'Reimbursement';
+
+  @override
+  String get category_other_income => 'Other';
+
+  @override
+  String monthBudget(Object month) {
+    return '$month Budget';
+  }
 }

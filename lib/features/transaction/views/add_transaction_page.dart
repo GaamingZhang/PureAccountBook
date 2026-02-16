@@ -9,6 +9,8 @@ import '../../../providers/theme_provider.dart';
 import '../models/transaction.dart';
 import '../providers/transaction_provider.dart';
 import '../providers/transaction_list_provider.dart';
+import '../../../l10n/app_localizations.dart';
+import '../../../core/utils/localization_utils.dart';
 
 class AddTransactionPage extends ConsumerStatefulWidget {
   const AddTransactionPage({super.key});
@@ -89,9 +91,11 @@ class _AddTransactionPageState extends ConsumerState<AddTransactionPage>
   Future<void> _saveTransaction() async {
     if (!_formKey.currentState!.validate()) return;
     if (_selectedCategory == null) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text('请选择类型')));
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(AppLocalizations.of(context)!.pleaseSelectCategory),
+        ),
+      );
       return;
     }
 
@@ -116,16 +120,18 @@ class _AddTransactionPageState extends ConsumerState<AddTransactionPage>
       ref.invalidate(transactionsByMonthProvider(monthKey));
 
       if (mounted) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(const SnackBar(content: Text('保存成功')));
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(AppLocalizations.of(context)!.saveSuccess)),
+        );
         Navigator.of(context).pop(true);
       }
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text('保存失败: $e')));
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('${AppLocalizations.of(context)!.saveFailed}: $e'),
+          ),
+        );
       }
     } finally {
       if (mounted) {
@@ -141,6 +147,7 @@ class _AddTransactionPageState extends ConsumerState<AddTransactionPage>
         : ref.watch(incomeCategoriesProvider);
     final primaryColor = ref.watch(themeColorProvider);
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
       backgroundColor: AppColors.backgroundOf(context),
@@ -148,7 +155,7 @@ class _AddTransactionPageState extends ConsumerState<AddTransactionPage>
         backgroundColor: AppColors.backgroundOf(context).withValues(alpha: 0.9),
         elevation: 0,
         title: Text(
-          '添加记录',
+          l10n.addRecord,
           style: TextStyle(
             color: AppColors.textMainOf(context),
             fontSize: 18,
@@ -173,9 +180,9 @@ class _AddTransactionPageState extends ConsumerState<AddTransactionPage>
               indicatorColor: primaryColor,
               labelColor: Colors.white,
               unselectedLabelColor: AppColors.textSecOf(context),
-              tabs: const [
-                Tab(text: '支出'),
-                Tab(text: '收入'),
+              tabs: [
+                Tab(text: l10n.expense),
+                Tab(text: l10n.income),
               ],
             ),
           ),
@@ -192,9 +199,9 @@ class _AddTransactionPageState extends ConsumerState<AddTransactionPage>
             const SizedBox(height: 12),
             _buildNoteInput(),
             const SizedBox(height: 16),
-            const Text(
-              '选择类型',
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+            Text(
+              l10n.selectCategory,
+              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
             categoriesAsync.when(
@@ -208,7 +215,7 @@ class _AddTransactionPageState extends ConsumerState<AddTransactionPage>
               error: (e, _) => Center(
                 child: Padding(
                   padding: const EdgeInsets.all(24),
-                  child: Text('加载失败: $e'),
+                  child: Text('${l10n.loadFailed}: $e'),
                 ),
               ),
             ),
@@ -224,7 +231,7 @@ class _AddTransactionPageState extends ConsumerState<AddTransactionPage>
                       width: 20,
                       child: CircularProgressIndicator(strokeWidth: 2),
                     )
-                  : const Text('保存', style: TextStyle(fontSize: 16)),
+                  : Text(l10n.save, style: const TextStyle(fontSize: 16)),
             ),
           ],
         ),
@@ -233,6 +240,7 @@ class _AddTransactionPageState extends ConsumerState<AddTransactionPage>
   }
 
   Widget _buildAmountInput() {
+    final l10n = AppLocalizations.of(context)!;
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
@@ -265,14 +273,14 @@ class _AddTransactionPageState extends ConsumerState<AddTransactionPage>
               ),
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return '请输入金额';
+                  return l10n.pleaseEnterAmount;
                 }
                 final amount = double.tryParse(value);
                 if (amount == null || amount <= 0) {
-                  return '请输入有效金额';
+                  return l10n.pleaseEnterValidAmount;
                 }
                 if (value.contains('.') && value.split('.')[1].length > 2) {
-                  return '金额最多两位小数';
+                  return l10n.maxTwoDecimals;
                 }
                 return null;
               },
@@ -284,6 +292,7 @@ class _AddTransactionPageState extends ConsumerState<AddTransactionPage>
   }
 
   Widget _buildDateRow() {
+    final l10n = AppLocalizations.of(context)!;
     return InkWell(
       onTap: _selectDate,
       borderRadius: BorderRadius.circular(8),
@@ -301,7 +310,7 @@ class _AddTransactionPageState extends ConsumerState<AddTransactionPage>
               color: Theme.of(context).primaryColor,
             ),
             const SizedBox(width: 12),
-            const Text('日期', style: TextStyle(fontSize: 14)),
+            Text(l10n.date, style: const TextStyle(fontSize: 14)),
             const Spacer(),
             Text(
               DateFormat('yyyy-MM-dd').format(_selectedDate),
@@ -316,10 +325,11 @@ class _AddTransactionPageState extends ConsumerState<AddTransactionPage>
   }
 
   Widget _buildNoteInput() {
+    final l10n = AppLocalizations.of(context)!;
     return TextFormField(
       controller: _noteController,
       decoration: InputDecoration(
-        labelText: '备注（可选）',
+        labelText: l10n.note,
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
         isDense: true,
         contentPadding: const EdgeInsets.symmetric(
@@ -376,7 +386,7 @@ class _AddTransactionPageState extends ConsumerState<AddTransactionPage>
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  category.name,
+                  LocalizationUtils.getLocalizedCategoryName(context, category),
                   style: TextStyle(
                     fontSize: 11,
                     color: isSelected ? Theme.of(context).primaryColor : null,

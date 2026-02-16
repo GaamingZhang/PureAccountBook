@@ -9,6 +9,7 @@ import '../features/transaction/models/transaction.dart';
 import '../features/category/providers/category_provider.dart';
 import '../features/category/models/category.dart';
 import '../l10n/app_localizations.dart';
+import '../core/utils/localization_utils.dart';
 
 final currentMonthProvider = StateProvider<DateTime>((ref) => DateTime.now());
 final filterTypeProvider = StateProvider<String>((ref) => 'all');
@@ -140,13 +141,16 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   if (_isSearching && _searchQuery.isNotEmpty) ...[
                     const SizedBox(height: 8),
                     Builder(
-                      builder: (ctx) => Text(
-                        '搜索: "$_searchQuery"',
-                        style: TextStyle(
-                          color: AppColors.textSecOf(ctx),
-                          fontSize: 12,
-                        ),
-                      ),
+                      builder: (ctx) {
+                        final l10n = AppLocalizations.of(ctx)!;
+                        return Text(
+                          '${l10n.searchLabel}: "$_searchQuery"',
+                          style: TextStyle(
+                            color: AppColors.textSecOf(ctx),
+                            fontSize: 12,
+                          ),
+                        );
+                      },
                     ),
                   ],
                   const SizedBox(height: 16),
@@ -239,6 +243,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     DateTime currentMonth,
     WidgetRef ref,
   ) {
+    final l10n = AppLocalizations.of(context)!;
     final now = DateTime.now();
     final isCurrentMonth =
         currentMonth.year == now.year && currentMonth.month == now.month;
@@ -288,7 +293,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             }
           },
           child: Text(
-            "${currentMonth.month}月 摘要",
+            l10n.monthSummary(currentMonth.month.toString()),
             style: TextStyle(
               color: AppColors.textMainOf(context),
               fontSize: 18,
@@ -401,7 +406,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           color: AppColors.surfaceOf(context),
           borderRadius: BorderRadius.circular(16),
         ),
-        child: Center(child: Text('加载失败: $e')),
+        child: Center(child: Text('${l10n.loadFailed}: $e')),
       ),
     );
   }
@@ -537,7 +542,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         child: Center(
           child: Padding(
             padding: const EdgeInsets.all(48),
-            child: Text('加载失败: $e'),
+            child: Text('${l10n.loadFailed}: $e'),
           ),
         ),
       ),
@@ -751,7 +756,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               (c) => c.id == tx.categoryId,
               orElse: () => Category(
                 id: tx.categoryId,
-                name: '未知',
+                name: l10n.unknown,
                 icon: 'help',
                 type: tx.type,
               ),
@@ -843,7 +848,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   if (context.mounted) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
-                        content: Text('Error: $e'),
+                        content: Text('${l10n.error}: $e'),
                         backgroundColor: AppColors.rose,
                       ),
                     );
@@ -873,7 +878,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            category.name,
+                            LocalizationUtils.getLocalizedCategoryName(context, category),
                             style: TextStyle(
                               color: AppColors.textMainOf(context),
                               fontSize: 14,
@@ -882,7 +887,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                           ),
                           const SizedBox(height: 2),
                           Text(
-                            tx.note ?? (isIncome ? '收入' : '支出'),
+                            tx.note ?? (isIncome ? l10n.defaultNoteIncome : l10n.defaultNoteExpense),
                             style: TextStyle(
                               color: AppColors.textSecOf(context),
                               fontSize: 10,

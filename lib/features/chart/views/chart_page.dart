@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import '../../transaction/providers/transaction_list_provider.dart';
 import '../../../core/config/app_config.dart';
 import '../../../shared/widgets/widgets.dart';
+import '../../../l10n/app_localizations.dart';
 
 enum TimeRange { week, month, threeMonths, year, custom }
 
@@ -25,11 +26,12 @@ class ChartPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final timeRange = ref.watch(timeRangeProvider);
     final dataType = ref.watch(chartDataTypeProvider);
+    final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
       backgroundColor: AppColors.backgroundOf(context),
       appBar: CommonAppBar(
-        title: '图表分析',
+        title: l10n.chartAnalysis,
         showBackButton: false,
         actions: [
           IconButton(
@@ -60,6 +62,7 @@ class _TimeRangeSelector extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final timeRange = ref.watch(timeRangeProvider);
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final l10n = AppLocalizations.of(context)!;
 
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
@@ -94,7 +97,7 @@ class _TimeRangeSelector extends ConsumerWidget {
                   ),
                 ),
                 child: Text(
-                  _getLabel(range),
+                  _getLabel(range, l10n),
                   style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
@@ -111,18 +114,18 @@ class _TimeRangeSelector extends ConsumerWidget {
     );
   }
 
-  String _getLabel(TimeRange range) {
+  String _getLabel(TimeRange range, AppLocalizations l10n) {
     switch (range) {
       case TimeRange.week:
-        return '一周';
+        return l10n.week;
       case TimeRange.month:
-        return '一个月';
+        return l10n.month;
       case TimeRange.threeMonths:
-        return '三个月';
+        return l10n.threeMonths;
       case TimeRange.year:
-        return '一年';
+        return l10n.year;
       case TimeRange.custom:
-        return '自定义';
+        return l10n.custom;
     }
   }
 }
@@ -132,6 +135,7 @@ class _DataTypeSelector extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final dataType = ref.watch(chartDataTypeProvider);
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final l10n = AppLocalizations.of(context)!;
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -163,7 +167,7 @@ class _DataTypeSelector extends ConsumerWidget {
                   ),
                 ),
                 child: Text(
-                  _getTypeLabel(type),
+                  _getTypeLabel(type, l10n),
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 14,
@@ -181,14 +185,14 @@ class _DataTypeSelector extends ConsumerWidget {
     );
   }
 
-  String _getTypeLabel(ChartDataType type) {
+  String _getTypeLabel(ChartDataType type, AppLocalizations l10n) {
     switch (type) {
       case ChartDataType.expense:
-        return '支出';
+        return l10n.expense;
       case ChartDataType.income:
-        return '收入';
+        return l10n.income;
       case ChartDataType.net:
-        return '净收入';
+        return l10n.netIncome;
     }
   }
 }
@@ -221,6 +225,7 @@ class _ChartView extends ConsumerWidget {
     final startStr = DateFormat('yyyy-MM-dd').format(startDate);
     final endStr = DateFormat('yyyy-MM-dd').format(endDate);
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final l10n = AppLocalizations.of(context)!;
 
     final transactionsAsync = ref.watch(
       transactionsByMonthProvider(DateFormat('yyyy-MM').format(startDate)),
@@ -247,7 +252,7 @@ class _ChartView extends ConsumerWidget {
                 ),
                 const SizedBox(height: 16),
                 Text(
-                  '暂无数据',
+                  l10n.noData,
                   style: TextStyle(
                     fontSize: 16,
                     color: AppColors.textSecOf(context),
@@ -373,7 +378,7 @@ class _ChartView extends ConsumerWidget {
         );
       },
       loading: () => const Center(child: CircularProgressIndicator()),
-      error: (e, _) => Center(child: Text('加载失败: $e')),
+      error: (e, _) => Center(child: Text('${l10n.loadFailed}: $e')),
     );
   }
 
@@ -387,6 +392,7 @@ class _ChartView extends ConsumerWidget {
       total += value.abs();
       if (value.abs() > max) max = value.abs();
     }
+    final l10n = AppLocalizations.of(context)!;
 
     return Container(
       padding: const EdgeInsets.all(20),
@@ -406,7 +412,7 @@ class _ChartView extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "总计",
+                l10n.total,
                 style: TextStyle(
                   fontSize: 12,
                   color: AppColors.textSecOf(context),
@@ -427,7 +433,7 @@ class _ChartView extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Text(
-                "最高单日",
+                l10n.maxDaily,
                 style: TextStyle(
                   fontSize: 12,
                   color: AppColors.textSecOf(context),

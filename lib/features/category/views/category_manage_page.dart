@@ -7,6 +7,8 @@ import '../providers/category_provider.dart';
 import '../../../core/config/app_config.dart';
 import '../../../providers/theme_provider.dart';
 import '../../../shared/widgets/widgets.dart';
+import '../../../l10n/app_localizations.dart';
+import '../../../core/utils/localization_utils.dart';
 
 class CategoryManagePage extends ConsumerStatefulWidget {
   const CategoryManagePage({super.key});
@@ -34,14 +36,15 @@ class _CategoryManagePageState extends ConsumerState<CategoryManagePage>
   @override
   Widget build(BuildContext context) {
     final primaryColor = ref.watch(themeColorProvider);
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       backgroundColor: AppColors.backgroundOf(context),
       appBar: AppBar(
         backgroundColor: AppColors.backgroundOf(context).withValues(alpha: 0.9),
         elevation: 0,
-        title: const Text(
-          '类型管理',
-          style: TextStyle(
+        title: Text(
+          l10n.categoryManage,
+          style: const TextStyle(
             color: Colors.white,
             fontSize: 18,
             fontWeight: FontWeight.bold,
@@ -61,9 +64,9 @@ class _CategoryManagePageState extends ConsumerState<CategoryManagePage>
               indicatorColor: primaryColor,
               labelColor: Colors.white,
               unselectedLabelColor: AppColors.textSecOf(context),
-              tabs: const [
-                Tab(text: '支出类型'),
-                Tab(text: '收入类型'),
+              tabs: [
+                Tab(text: l10n.expenseCategory),
+                Tab(text: l10n.incomeCategory),
               ],
             ),
           ),
@@ -105,11 +108,12 @@ class _CategoryList extends ConsumerWidget {
     final categoriesAsync = type == 'expense'
         ? ref.watch(expenseCategoriesProvider)
         : ref.watch(incomeCategoriesProvider);
+    final l10n = AppLocalizations.of(context)!;
 
     return categoriesAsync.when(
       data: (categories) {
         if (categories.isEmpty) {
-          return const Center(child: Text('暂无类型'));
+          return Center(child: Text(l10n.noCategories));
         }
 
         return ListView.builder(
@@ -121,7 +125,7 @@ class _CategoryList extends ConsumerWidget {
         );
       },
       loading: () => const Center(child: CircularProgressIndicator()),
-      error: (e, _) => Center(child: Text('加载失败: $e')),
+      error: (e, _) => Center(child: Text('${l10n.loadFailed}: $e')),
     );
   }
 }
@@ -155,20 +159,21 @@ class _CategoryListTile extends ConsumerWidget {
   }
 
   Future<bool> _confirmDelete(BuildContext context) async {
+    final l10n = AppLocalizations.of(context)!;
     final result = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('确认删除'),
-        content: const Text('确定要删除这个类型吗？'),
+        title: Text(l10n.confirmDelete),
+        content: Text(l10n.confirmDeleteCategory),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),
-            child: const Text('取消'),
+            child: Text(l10n.cancel),
           ),
           TextButton(
             onPressed: () => Navigator.of(context).pop(true),
             style: TextButton.styleFrom(foregroundColor: Colors.red),
-            child: const Text('删除'),
+            child: Text(l10n.delete),
           ),
         ],
       ),
@@ -178,6 +183,7 @@ class _CategoryListTile extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     return Dismissible(
       key: Key('category_${category.id}'),
       direction: category.isDefault
@@ -195,7 +201,7 @@ class _CategoryListTile extends ConsumerWidget {
               if (context.mounted) {
                 ScaffoldMessenger.of(
                   context,
-                ).showSnackBar(const SnackBar(content: Text('类型已删除')));
+                ).showSnackBar(SnackBar(content: Text(l10n.categoryDeleted)));
               }
             },
       background: Container(
@@ -206,8 +212,10 @@ class _CategoryListTile extends ConsumerWidget {
       ),
       child: ListTile(
         leading: CircleAvatar(child: Icon(_getIconData(category.icon))),
-        title: Text(category.name),
-        subtitle: category.isDefault ? const Text('默认类型') : null,
+        title: Text(
+          LocalizationUtils.getLocalizedCategoryName(context, category),
+        ),
+        subtitle: category.isDefault ? Text(l10n.defaultCategory) : null,
         trailing: category.isDefault
             ? null
             : IconButton(
@@ -331,16 +339,18 @@ class _AddCategoryPageState extends ConsumerState<AddCategoryPage> {
       await ref.read(categoryNotifierProvider.notifier).addCategory(category);
 
       if (mounted) {
+        final l10n = AppLocalizations.of(context)!;
         ScaffoldMessenger.of(
           context,
-        ).showSnackBar(const SnackBar(content: Text('添加成功')));
+        ).showSnackBar(SnackBar(content: Text(l10n.addSuccess)));
         Navigator.of(context).pop(true);
       }
     } catch (e) {
       if (mounted) {
+        final l10n = AppLocalizations.of(context)!;
         ScaffoldMessenger.of(
           context,
-        ).showSnackBar(SnackBar(content: Text('添加失败: $e')));
+        ).showSnackBar(SnackBar(content: Text('${l10n.addFailed}: $e')));
       }
     } finally {
       if (mounted) {
@@ -357,11 +367,10 @@ class _AddCategoryPageState extends ConsumerState<AddCategoryPage> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       backgroundColor: AppColors.backgroundOf(context),
-      appBar: CommonAppBar(
-        title: '添加${widget.type == 'expense' ? '支出' : '收入'}类型',
-      ),
+      appBar: CommonAppBar(title: l10n.addCategory),
       body: Form(
         key: _formKey,
         child: ListView(
@@ -369,21 +378,21 @@ class _AddCategoryPageState extends ConsumerState<AddCategoryPage> {
           children: [
             TextFormField(
               controller: _nameController,
-              decoration: const InputDecoration(
-                labelText: '类型名称',
-                border: OutlineInputBorder(),
+              decoration: InputDecoration(
+                labelText: l10n.categoryName,
+                border: const OutlineInputBorder(),
               ),
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return '请输入类型名称';
+                  return l10n.pleaseEnterCategoryName;
                 }
                 return null;
               },
             ),
             const SizedBox(height: 16),
-            const Text(
-              '选择图标',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            Text(
+              l10n.selectIcon,
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
             GridView.builder(
@@ -438,7 +447,7 @@ class _AddCategoryPageState extends ConsumerState<AddCategoryPage> {
                       width: 20,
                       child: CircularProgressIndicator(strokeWidth: 2),
                     )
-                  : const Text('保存'),
+                  : Text(l10n.save),
             ),
           ],
         ),
@@ -560,16 +569,18 @@ class _EditCategoryPageState extends ConsumerState<EditCategoryPage> {
           .updateCategory(category);
 
       if (mounted) {
+        final l10n = AppLocalizations.of(context)!;
         ScaffoldMessenger.of(
           context,
-        ).showSnackBar(const SnackBar(content: Text('更新成功')));
+        ).showSnackBar(SnackBar(content: Text(l10n.updateSuccess)));
         Navigator.of(context).pop(true);
       }
     } catch (e) {
       if (mounted) {
+        final l10n = AppLocalizations.of(context)!;
         ScaffoldMessenger.of(
           context,
-        ).showSnackBar(SnackBar(content: Text('更新失败: $e')));
+        ).showSnackBar(SnackBar(content: Text('${l10n.updateFailed}: $e')));
       }
     } finally {
       if (mounted) {
@@ -580,9 +591,10 @@ class _EditCategoryPageState extends ConsumerState<EditCategoryPage> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       backgroundColor: AppColors.backgroundOf(context),
-      appBar: const CommonAppBar(title: '编辑类型'),
+      appBar: CommonAppBar(title: l10n.editCategory),
       body: Form(
         key: _formKey,
         child: ListView(
@@ -590,21 +602,21 @@ class _EditCategoryPageState extends ConsumerState<EditCategoryPage> {
           children: [
             TextFormField(
               controller: _nameController,
-              decoration: const InputDecoration(
-                labelText: '类型名称',
-                border: OutlineInputBorder(),
+              decoration: InputDecoration(
+                labelText: l10n.categoryName,
+                border: const OutlineInputBorder(),
               ),
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return '请输入类型名称';
+                  return l10n.pleaseEnterCategoryName;
                 }
                 return null;
               },
             ),
             const SizedBox(height: 16),
-            const Text(
-              '选择图标',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            Text(
+              l10n.selectIcon,
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
             GridView.builder(
@@ -659,7 +671,7 @@ class _EditCategoryPageState extends ConsumerState<EditCategoryPage> {
                       width: 20,
                       child: CircularProgressIndicator(strokeWidth: 2),
                     )
-                  : const Text('保存'),
+                  : Text(l10n.save),
             ),
           ],
         ),

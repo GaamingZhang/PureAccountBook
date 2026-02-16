@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../core/config/app_config.dart';
+import '../l10n/app_localizations.dart';
 
 void showAboutPage(BuildContext context) {
   showModalBottomSheet(
@@ -17,6 +18,7 @@ class AboutPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final primaryColor = Theme.of(context).colorScheme.primary;
     final bottomPadding = MediaQuery.of(context).padding.bottom;
+    final l10n = AppLocalizations.of(context)!;
 
     return GestureDetector(
       onVerticalDragEnd: (details) {
@@ -64,7 +66,7 @@ class AboutPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 16),
                     Text(
-                      '纯记账',
+                      l10n.appName,
                       style: TextStyle(
                         color: AppColors.textMainOf(context),
                         fontSize: 24,
@@ -73,7 +75,7 @@ class AboutPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      '版本 1.0.0',
+                      '${l10n.version} 1.0.0',
                       style: TextStyle(
                         color: AppColors.textSecOf(context),
                         fontSize: 14,
@@ -83,29 +85,29 @@ class AboutPage extends StatelessWidget {
                     _buildInfoCard(
                       context,
                       icon: Icons.storage,
-                      title: '纯本地数据',
-                      description: '所有数据仅存储在您的设备本地，不会上传到任何服务器。您的隐私数据完全由您自己掌控。',
+                      title: l10n.localData,
+                      description: l10n.localDataDesc,
                       color: AppColors.emerald,
                     ),
                     const SizedBox(height: 16),
                     _buildInfoCard(
                       context,
                       icon: Icons.wifi_off,
-                      title: '无联网功能',
-                      description: '本应用无需网络连接即可正常使用，不包含任何联网功能，确保您的数据安全。',
+                      title: l10n.noNetwork,
+                      description: l10n.noNetworkDesc,
                       color: primaryColor,
                     ),
                     const SizedBox(height: 16),
                     _buildInfoCard(
                       context,
                       icon: Icons.block,
-                      title: '纯净无广告',
-                      description: '应用内不含任何广告，为您提供清爽、专注的记账体验。',
+                      title: l10n.noAds,
+                      description: l10n.noAdsDesc,
                       color: AppColors.rose,
                     ),
                     const SizedBox(height: 48),
                     Text(
-                      '© ${DateTime.now().year} 纯记账. 保留所有权利。',
+                      '${l10n.copyright} © ${DateTime.now().year} ${l10n.appName}.',
                       style: TextStyle(
                         color: AppColors.textSecOf(context),
                         fontSize: 12,

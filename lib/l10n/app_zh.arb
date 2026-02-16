@@ -483,5 +483,255 @@
   "budgetAppliedToAllMonths": "预算已应用到所有月份",
   "@budgetAppliedToAllMonths": {
     "description": "预算已应用到所有月份"
+  },
+  "loadFailed": "加载失败",
+  "@loadFailed": {
+    "description": "加载失败提示"
+  },
+  "loadCategoriesFailed": "加载分类失败",
+  "@loadCategoriesFailed": {
+    "description": "加载分类失败提示"
+  },
+  "pleaseSelectCategory": "请选择分类",
+  "@pleaseSelectCategory": {
+    "description": "请选择分类提示"
+  },
+  "deleteSuccess": "删除成功",
+  "@deleteSuccess": {
+    "description": "删除成功提示"
+  },
+  "deleteFailed": "删除失败",
+  "@deleteFailed": {
+    "description": "删除失败提示"
+  },
+  "updateSuccess": "更新成功",
+  "@updateSuccess": {
+    "description": "更新成功提示"
+  },
+  "updateFailed": "更新失败",
+  "@updateFailed": {
+    "description": "更新失败提示"
+  },
+  "confirmDeleteCategory": "确定要删除这个类型吗？",
+  "@confirmDeleteCategory": {
+    "description": "确定要删除这个类型吗？"
+  },
+  "noCategories": "暂无类型",
+  "@noCategories": {
+    "description": "暂无类型提示"
+  },
+  "addSuccess": "添加成功",
+  "@addSuccess": {
+    "description": "添加成功提示"
+  },
+  "addFailed": "添加失败",
+  "@addFailed": {
+    "description": "添加失败提示"
+  },
+  "confirm": "确定",
+  "@confirm": {
+    "description": "确定按钮"
+  },
+  "error": "错误",
+  "@error": {
+    "description": "错误提示"
+  },
+  "chartAnalysis": "图表分析",
+  "@chartAnalysis": {
+    "description": "图表分析"
+  },
+  "total": "总计",
+  "@total": {
+    "description": "总计"
+  },
+  "maxDaily": "最高单日",
+  "@maxDaily": {
+    "description": "最高单日"
+  },
+  "billingRanking": "账单排行",
+  "@billingRanking": {
+    "description": "账单排行"
+  },
+  "categoryRanking": "类别排行",
+  "@categoryRanking": {
+    "description": "类别排行"
+  },
+  "dailyExpenseRanking": "日支出排行",
+  "@dailyExpenseRanking": {
+    "description": "日支出排行"
+  },
+  "dailyIncomeRanking": "日收入排行",
+  "@dailyIncomeRanking": {
+    "description": "日收入排行"
+  },
+  "noExpenseData": "暂无支出数据",
+  "@noExpenseData": {
+    "description": "暂无支出数据"
+  },
+  "noIncomeData": "暂无收入数据",
+  "@noIncomeData": {
+    "description": "暂无收入数据"
+  },
+  "searchQuery": "搜索",
+  "@searchQuery": {
+    "description": "搜索"
+  },
+  "recordATransaction": "记一笔",
+  "@recordATransaction": {
+    "description": "记一笔"
+  },
+  "stats": "数据统计",
+  "@stats": {
+    "description": "数据统计"
+  },
+  "weekAbbr": "周",
+  "@weekAbbr": {
+    "description": "周(缩写)"
+  },
+  "monthAbbr": "月",
+  "@monthAbbr": {
+    "description": "月(缩写)"
+  },
+  "yearAbbr": "年",
+  "@yearAbbr": {
+    "description": "年(缩写)"
+  },
+  "netIncome": "净收入",
+  "@netIncome": {
+    "description": "净收入"
+  },
+  "loading": "加载中...",
+  "@loading": {
+    "description": "加载中..."
+  },
+  "billingTrend": "账单趋势",
+  "@billingTrend": {
+    "description": "账单趋势"
+  },
+  "unknown": "未知",
+  "@unknown": {
+    "description": "未知"
+  },
+  "searchLabel": "搜索",
+  "@searchLabel": {
+    "description": "搜索标签"
+  },
+  "monthSummary": "{month}月 摘要",
+  "@monthSummary": {
+    "description": "月摘要",
+    "placeholders": {
+      "month": {}
+    }
+  },
+  "defaultNoteIncome": "收入",
+  "@defaultNoteIncome": {
+    "description": "默认收入备注"
+  },
+  "defaultNoteExpense": "支出",
+  "@defaultNoteExpense": {
+    "description": "默认支出备注"
+  },
+  "saveFailed": "保存失败",
+  "@saveFailed": {
+    "description": "保存失败"
+  },
+  "confirm": "确认",
+  "@confirm": {
+    "description": "确认"
+  },
+  "updateFailed": "更新失败",
+  "@updateFailed": {
+    "description": "更新失败"
+  },
+  "deleteFailed": "删除失败",
+  "@deleteFailed": {
+    "description": "删除失败"
+  },
+  "maxTwoDecimals": "金额最多两位小数",
+  "@maxTwoDecimals": {
+    "description": "金额最多两位小数"
+  },
+  "addFailed": "添加失败",
+  "@addFailed": {
+    "description": "添加失败"
+  },
+  "category_food": "餐饮",
+  "@category_food": {
+    "description": "餐饮分类"
+  },
+  "category_shopping": "购物",
+  "@category_shopping": {
+    "description": "购物分类"
+  },
+  "category_transport": "交通",
+  "@category_transport": {
+    "description": "交通分类"
+  },
+  "category_daily": "日用",
+  "@category_daily": {
+    "description": "日用分类"
+  },
+  "category_entertainment": "娱乐",
+  "@category_entertainment": {
+    "description": "娱乐分类"
+  },
+  "category_medical": "医疗",
+  "@category_medical": {
+    "description": "医疗分类"
+  },
+  "category_education": "教育",
+  "@category_education": {
+    "description": "教育分类"
+  },
+  "category_communication": "通讯",
+  "@category_communication": {
+    "description": "通讯分类"
+  },
+  "category_clothing": "服饰",
+  "@category_clothing": {
+    "description": "服饰分类"
+  },
+  "category_beauty": "美容",
+  "@category_beauty": {
+    "description": "美容分类"
+  },
+  "category_housing": "住房",
+  "@category_housing": {
+    "description": "住房分类"
+  },
+  "category_other_expense": "其他",
+  "@category_other_expense": {
+    "description": "其他支出分类"
+  },
+  "category_salary": "工资",
+  "@category_salary": {
+    "description": "工资分类"
+  },
+  "category_bonus": "奖金",
+  "@category_bonus": {
+    "description": "奖金分类"
+  },
+  "category_investment": "理财",
+  "@category_investment": {
+    "description": "理财分类"
+  },
+  "category_parttime": "兼职",
+  "@category_parttime": {
+    "description": "兼职分类"
+  },
+  "category_reimbursement": "报销",
+  "@category_reimbursement": {
+    "description": "报销分类"
+  },
+  "category_other_income": "其他",
+  "@category_other_income": {
+    "description": "其他收入分类"
+  },
+  "monthBudget": "{month}月 预算",
+  "@monthBudget": {
+    "description": "月份预算标题",
+    "placeholders": {
+      "month": {}
+    }
   }
 }

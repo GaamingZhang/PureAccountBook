@@ -361,10 +361,10 @@ abstract class AppLocalizations {
   /// **'无备注'**
   String get noNote;
 
-  /// 请选择类型提示
+  /// 请选择分类提示
   ///
   /// In zh, this message translates to:
-  /// **'请选择类型'**
+  /// **'请选择分类'**
   String get pleaseSelectCategory;
 
   /// 请输入金额提示
@@ -613,10 +613,10 @@ abstract class AppLocalizations {
   /// **'保存修改'**
   String get saveChanges;
 
-  /// 确认设置
+  /// 确认
   ///
   /// In zh, this message translates to:
-  /// **'确认设置'**
+  /// **'确认'**
   String get confirm;
 
   /// 正在升级数据
@@ -766,8 +766,8 @@ abstract class AppLocalizations {
   /// 月摘要
   ///
   /// In zh, this message translates to:
-  /// **'月摘要'**
-  String get monthSummary;
+  /// **'{month}月 摘要'**
+  String monthSummary(Object month);
 
   /// 语言设置
   ///
@@ -828,6 +828,330 @@ abstract class AppLocalizations {
   /// In zh, this message translates to:
   /// **'预算已应用到所有月份'**
   String get budgetAppliedToAllMonths;
+
+  /// 加载失败提示
+  ///
+  /// In zh, this message translates to:
+  /// **'加载失败'**
+  String get loadFailed;
+
+  /// 加载分类失败提示
+  ///
+  /// In zh, this message translates to:
+  /// **'加载分类失败'**
+  String get loadCategoriesFailed;
+
+  /// 删除成功提示
+  ///
+  /// In zh, this message translates to:
+  /// **'删除成功'**
+  String get deleteSuccess;
+
+  /// 删除失败
+  ///
+  /// In zh, this message translates to:
+  /// **'删除失败'**
+  String get deleteFailed;
+
+  /// 更新成功提示
+  ///
+  /// In zh, this message translates to:
+  /// **'更新成功'**
+  String get updateSuccess;
+
+  /// 更新失败
+  ///
+  /// In zh, this message translates to:
+  /// **'更新失败'**
+  String get updateFailed;
+
+  /// 确定要删除这个类型吗？
+  ///
+  /// In zh, this message translates to:
+  /// **'确定要删除这个类型吗？'**
+  String get confirmDeleteCategory;
+
+  /// 暂无类型提示
+  ///
+  /// In zh, this message translates to:
+  /// **'暂无类型'**
+  String get noCategories;
+
+  /// 添加成功提示
+  ///
+  /// In zh, this message translates to:
+  /// **'添加成功'**
+  String get addSuccess;
+
+  /// 添加失败
+  ///
+  /// In zh, this message translates to:
+  /// **'添加失败'**
+  String get addFailed;
+
+  /// 错误提示
+  ///
+  /// In zh, this message translates to:
+  /// **'错误'**
+  String get error;
+
+  /// 图表分析
+  ///
+  /// In zh, this message translates to:
+  /// **'图表分析'**
+  String get chartAnalysis;
+
+  /// 总计
+  ///
+  /// In zh, this message translates to:
+  /// **'总计'**
+  String get total;
+
+  /// 最高单日
+  ///
+  /// In zh, this message translates to:
+  /// **'最高单日'**
+  String get maxDaily;
+
+  /// 账单排行
+  ///
+  /// In zh, this message translates to:
+  /// **'账单排行'**
+  String get billingRanking;
+
+  /// 类别排行
+  ///
+  /// In zh, this message translates to:
+  /// **'类别排行'**
+  String get categoryRanking;
+
+  /// 日支出排行
+  ///
+  /// In zh, this message translates to:
+  /// **'日支出排行'**
+  String get dailyExpenseRanking;
+
+  /// 日收入排行
+  ///
+  /// In zh, this message translates to:
+  /// **'日收入排行'**
+  String get dailyIncomeRanking;
+
+  /// 暂无支出数据
+  ///
+  /// In zh, this message translates to:
+  /// **'暂无支出数据'**
+  String get noExpenseData;
+
+  /// 暂无收入数据
+  ///
+  /// In zh, this message translates to:
+  /// **'暂无收入数据'**
+  String get noIncomeData;
+
+  /// 搜索
+  ///
+  /// In zh, this message translates to:
+  /// **'搜索'**
+  String get searchQuery;
+
+  /// 记一笔
+  ///
+  /// In zh, this message translates to:
+  /// **'记一笔'**
+  String get recordATransaction;
+
+  /// 数据统计
+  ///
+  /// In zh, this message translates to:
+  /// **'数据统计'**
+  String get stats;
+
+  /// 周(缩写)
+  ///
+  /// In zh, this message translates to:
+  /// **'周'**
+  String get weekAbbr;
+
+  /// 月(缩写)
+  ///
+  /// In zh, this message translates to:
+  /// **'月'**
+  String get monthAbbr;
+
+  /// 年(缩写)
+  ///
+  /// In zh, this message translates to:
+  /// **'年'**
+  String get yearAbbr;
+
+  /// 净收入
+  ///
+  /// In zh, this message translates to:
+  /// **'净收入'**
+  String get netIncome;
+
+  /// 加载中...
+  ///
+  /// In zh, this message translates to:
+  /// **'加载中...'**
+  String get loading;
+
+  /// 账单趋势
+  ///
+  /// In zh, this message translates to:
+  /// **'账单趋势'**
+  String get billingTrend;
+
+  /// 未知
+  ///
+  /// In zh, this message translates to:
+  /// **'未知'**
+  String get unknown;
+
+  /// 搜索标签
+  ///
+  /// In zh, this message translates to:
+  /// **'搜索'**
+  String get searchLabel;
+
+  /// 默认收入备注
+  ///
+  /// In zh, this message translates to:
+  /// **'收入'**
+  String get defaultNoteIncome;
+
+  /// 默认支出备注
+  ///
+  /// In zh, this message translates to:
+  /// **'支出'**
+  String get defaultNoteExpense;
+
+  /// 保存失败
+  ///
+  /// In zh, this message translates to:
+  /// **'保存失败'**
+  String get saveFailed;
+
+  /// 金额最多两位小数
+  ///
+  /// In zh, this message translates to:
+  /// **'金额最多两位小数'**
+  String get maxTwoDecimals;
+
+  /// 餐饮分类
+  ///
+  /// In zh, this message translates to:
+  /// **'餐饮'**
+  String get category_food;
+
+  /// 购物分类
+  ///
+  /// In zh, this message translates to:
+  /// **'购物'**
+  String get category_shopping;
+
+  /// 交通分类
+  ///
+  /// In zh, this message translates to:
+  /// **'交通'**
+  String get category_transport;
+
+  /// 日用分类
+  ///
+  /// In zh, this message translates to:
+  /// **'日用'**
+  String get category_daily;
+
+  /// 娱乐分类
+  ///
+  /// In zh, this message translates to:
+  /// **'娱乐'**
+  String get category_entertainment;
+
+  /// 医疗分类
+  ///
+  /// In zh, this message translates to:
+  /// **'医疗'**
+  String get category_medical;
+
+  /// 教育分类
+  ///
+  /// In zh, this message translates to:
+  /// **'教育'**
+  String get category_education;
+
+  /// 通讯分类
+  ///
+  /// In zh, this message translates to:
+  /// **'通讯'**
+  String get category_communication;
+
+  /// 服饰分类
+  ///
+  /// In zh, this message translates to:
+  /// **'服饰'**
+  String get category_clothing;
+
+  /// 美容分类
+  ///
+  /// In zh, this message translates to:
+  /// **'美容'**
+  String get category_beauty;
+
+  /// 住房分类
+  ///
+  /// In zh, this message translates to:
+  /// **'住房'**
+  String get category_housing;
+
+  /// 其他支出分类
+  ///
+  /// In zh, this message translates to:
+  /// **'其他'**
+  String get category_other_expense;
+
+  /// 工资分类
+  ///
+  /// In zh, this message translates to:
+  /// **'工资'**
+  String get category_salary;
+
+  /// 奖金分类
+  ///
+  /// In zh, this message translates to:
+  /// **'奖金'**
+  String get category_bonus;
+
+  /// 理财分类
+  ///
+  /// In zh, this message translates to:
+  /// **'理财'**
+  String get category_investment;
+
+  /// 兼职分类
+  ///
+  /// In zh, this message translates to:
+  /// **'兼职'**
+  String get category_parttime;
+
+  /// 报销分类
+  ///
+  /// In zh, this message translates to:
+  /// **'报销'**
+  String get category_reimbursement;
+
+  /// 其他收入分类
+  ///
+  /// In zh, this message translates to:
+  /// **'其他'**
+  String get category_other_income;
+
+  /// 月份预算标题
+  ///
+  /// In zh, this message translates to:
+  /// **'{month}月 预算'**
+  String monthBudget(Object month);
 }
 
 class _AppLocalizationsDelegate

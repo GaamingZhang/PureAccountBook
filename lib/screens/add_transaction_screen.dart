@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import '../core/config/app_config.dart';
+import '../core/utils/localization_utils.dart';
 import '../providers/theme_provider.dart';
 import '../features/category/models/category.dart';
 import '../features/category/providers/category_provider.dart';
 import '../features/transaction/models/transaction.dart';
 import '../features/transaction/providers/transaction_provider.dart';
 import '../features/transaction/providers/transaction_list_provider.dart';
+import '../l10n/app_localizations.dart';
 
 class AddTransactionScreen extends ConsumerStatefulWidget {
   final VoidCallback? onBack;
@@ -62,19 +64,20 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
   }
 
   Future<void> _saveTransaction() async {
+    final l10n = AppLocalizations.of(context)!;
     if (_amount.isEmpty ||
         double.tryParse(_amount) == null ||
         double.parse(_amount) <= 0) {
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(const SnackBar(content: Text('请输入有效金额')));
+      ).showSnackBar(SnackBar(content: Text(l10n.pleaseEnterValidAmount)));
       return;
     }
 
     if (_selectedCategory == null) {
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(const SnackBar(content: Text('请选择分类')));
+      ).showSnackBar(SnackBar(content: Text(l10n.pleaseSelectCategory)));
       return;
     }
 
@@ -101,7 +104,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
       if (mounted) {
         ScaffoldMessenger.of(
           context,
-        ).showSnackBar(const SnackBar(content: Text('保存成功')));
+        ).showSnackBar(SnackBar(content: Text(l10n.saveSuccess)));
         if (widget.onBack != null) {
           widget.onBack!();
         } else {
@@ -112,7 +115,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
       if (mounted) {
         ScaffoldMessenger.of(
           context,
-        ).showSnackBar(SnackBar(content: Text('保存失败: $e')));
+        ).showSnackBar(SnackBar(content: Text('${l10n.saveFailed}: $e')));
       }
     } finally {
       if (mounted) {
@@ -155,6 +158,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final categoriesAsync = _type == TransactionType.expense
         ? ref.watch(expenseCategoriesProvider)
         : ref.watch(incomeCategoriesProvider);
@@ -188,7 +192,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
                                 widget.onBack ?? () => Navigator.pop(context),
                           ),
                           Text(
-                            "记一笔",
+                            l10n.recordATransaction,
                             style: TextStyle(
                               color: AppColors.textMainOf(context),
                               fontSize: 18,
@@ -212,10 +216,16 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
                       child: Row(
                         children: [
                           Expanded(
-                            child: _buildToggle(TransactionType.expense, "支出"),
+                            child: _buildToggle(
+                              TransactionType.expense,
+                              l10n.expense,
+                            ),
                           ),
                           Expanded(
-                            child: _buildToggle(TransactionType.income, "收入"),
+                            child: _buildToggle(
+                              TransactionType.income,
+                              l10n.income,
+                            ),
                           ),
                         ],
                       ),
@@ -224,7 +234,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
                     Column(
                       children: [
                         Text(
-                          "金额",
+                          l10n.amount,
                           style: TextStyle(
                             color: AppColors.textSecOf(context),
                             fontSize: 14,
@@ -275,7 +285,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
                       child: Row(
                         children: [
                           Text(
-                            "选择分类",
+                            l10n.selectCategory,
                             style: TextStyle(
                               color: AppColors.textSecOf(context),
                               fontSize: 12,
@@ -334,12 +344,18 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
                                   ),
                                   const SizedBox(height: 2),
                                   Text(
-                                    cat.name,
+                                    LocalizationUtils.getLocalizedCategoryName(
+                                      context,
+                                      cat,
+                                    ),
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                    textAlign: TextAlign.center,
                                     style: TextStyle(
                                       color: isSelected
                                           ? primaryColor
                                           : AppColors.textSecOf(context),
-                                      fontSize: 14,
+                                      fontSize: 11,
                                       fontWeight: FontWeight.w500,
                                     ),
                                   ),
@@ -352,7 +368,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
                             const Center(child: CircularProgressIndicator()),
                         error: (e, _) => Center(
                           child: Text(
-                            '加载失败: $e',
+                            '${l10n.loadFailed}: $e',
                             style: TextStyle(
                               color: AppColors.textSecOf(context),
                             ),
@@ -374,7 +390,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
                   fontSize: 16,
                 ),
                 decoration: InputDecoration(
-                  hintText: '备注（可选）',
+                  hintText: l10n.note,
                   hintStyle: TextStyle(
                     color: AppColors.textSecOf(context),
                     fontSize: 16,
@@ -427,7 +443,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
                           'backspace',
                         ),
                         ...['4', '5', '6'].map(_buildKey),
-                        _buildTextKey('日期', primaryColor, _selectDate),
+                        _buildTextKey(l10n.date, primaryColor, _selectDate),
                         ...['7', '8', '9'].map(_buildKey),
                         _buildKey('.'),
                         const SizedBox(),
@@ -449,8 +465,8 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
                                       color: Colors.white,
                                     ),
                                   )
-                                : const Text(
-                                    "确认",
+                                : Text(
+                                    l10n.confirm,
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 16,

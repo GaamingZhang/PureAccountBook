@@ -9,6 +9,8 @@ import '../../../providers/theme_provider.dart';
 import '../models/transaction.dart';
 import '../providers/transaction_provider.dart';
 import '../providers/transaction_list_provider.dart';
+import '../../../l10n/app_localizations.dart';
+import '../../../core/utils/localization_utils.dart';
 
 class EditTransactionPage extends ConsumerStatefulWidget {
   final TransactionRecord transaction;
@@ -101,22 +103,23 @@ class _EditTransactionPageState extends ConsumerState<EditTransactionPage>
   }
 
   Future<void> _deleteTransaction() async {
+    final l10n = AppLocalizations.of(context)!;
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('确认删除'),
-        content: const Text('确定要删除这条记录吗？'),
+        title: Text(l10n.confirmDelete),
+        content: Text(l10n.confirmDeleteMessage),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),
-            child: const Text('取消'),
+            child: Text(l10n.cancel),
           ),
           TextButton(
             onPressed: () => Navigator.of(context).pop(true),
             style: TextButton.styleFrom(
               foregroundColor: Theme.of(context).colorScheme.error,
             ),
-            child: const Text('删除'),
+            child: Text(l10n.delete),
           ),
         ],
       ),
@@ -139,14 +142,14 @@ class _EditTransactionPageState extends ConsumerState<EditTransactionPage>
       if (mounted) {
         ScaffoldMessenger.of(
           context,
-        ).showSnackBar(const SnackBar(content: Text('删除成功')));
+        ).showSnackBar(SnackBar(content: Text(l10n.recordDeleted)));
         Navigator.of(context).pop(true);
       }
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(
           context,
-        ).showSnackBar(SnackBar(content: Text('删除失败: $e')));
+        ).showSnackBar(SnackBar(content: Text('${l10n.deleteFailed}: $e')));
       }
     } finally {
       if (mounted) {
@@ -156,11 +159,12 @@ class _EditTransactionPageState extends ConsumerState<EditTransactionPage>
   }
 
   Future<void> _saveTransaction() async {
+    final l10n = AppLocalizations.of(context)!;
     if (!_formKey.currentState!.validate()) return;
     if (_selectedCategory == null) {
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(const SnackBar(content: Text('请选择类型')));
+      ).showSnackBar(SnackBar(content: Text(l10n.pleaseSelectCategory)));
       return;
     }
 
@@ -187,14 +191,14 @@ class _EditTransactionPageState extends ConsumerState<EditTransactionPage>
       if (mounted) {
         ScaffoldMessenger.of(
           context,
-        ).showSnackBar(const SnackBar(content: Text('更新成功')));
+        ).showSnackBar(SnackBar(content: Text(l10n.updateSuccess)));
         Navigator.of(context).pop(true);
       }
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(
           context,
-        ).showSnackBar(SnackBar(content: Text('更新失败: $e')));
+        ).showSnackBar(SnackBar(content: Text('${l10n.updateFailed}: $e')));
       }
     } finally {
       if (mounted) {
@@ -205,6 +209,7 @@ class _EditTransactionPageState extends ConsumerState<EditTransactionPage>
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final categoriesAsync = _transactionType == 'expense'
         ? ref.watch(expenseCategoriesProvider)
         : ref.watch(incomeCategoriesProvider);
@@ -217,7 +222,7 @@ class _EditTransactionPageState extends ConsumerState<EditTransactionPage>
         backgroundColor: AppColors.backgroundOf(context).withValues(alpha: 0.9),
         elevation: 0,
         title: Text(
-          '编辑记录',
+          l10n.editRecord,
           style: TextStyle(
             color: AppColors.textMainOf(context),
             fontSize: 18,
@@ -229,7 +234,7 @@ class _EditTransactionPageState extends ConsumerState<EditTransactionPage>
           IconButton(
             onPressed: _isLoading ? null : _deleteTransaction,
             icon: const Icon(Icons.delete, color: AppColors.rose),
-            tooltip: '删除',
+            tooltip: l10n.delete,
           ),
         ],
         bottom: PreferredSize(
@@ -249,9 +254,9 @@ class _EditTransactionPageState extends ConsumerState<EditTransactionPage>
               indicatorColor: primaryColor,
               labelColor: Colors.white,
               unselectedLabelColor: AppColors.textSecOf(context),
-              tabs: const [
-                Tab(text: '支出'),
-                Tab(text: '收入'),
+              tabs: [
+                Tab(text: l10n.expense),
+                Tab(text: l10n.income),
               ],
             ),
           ),
@@ -264,32 +269,32 @@ class _EditTransactionPageState extends ConsumerState<EditTransactionPage>
           children: [
             TextFormField(
               controller: _amountController,
-              decoration: const InputDecoration(
-                labelText: '金额',
+              decoration: InputDecoration(
+                labelText: l10n.amount,
                 prefixText: '¥',
-                border: OutlineInputBorder(),
+                border: const OutlineInputBorder(),
               ),
               keyboardType: const TextInputType.numberWithOptions(
                 decimal: true,
               ),
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return '请输入金额';
+                  return l10n.pleaseEnterAmount;
                 }
                 final amount = double.tryParse(value);
                 if (amount == null || amount <= 0) {
-                  return '请输入有效金额';
+                  return l10n.pleaseEnterValidAmount;
                 }
                 // 检查小数位数是否超过两位
                 if (value.contains('.') && value.split('.')[1].length > 2) {
-                  return '金额最多两位小数';
+                  return l10n.maxTwoDecimals;
                 }
                 return null;
               },
             ),
             const SizedBox(height: 16),
             ListTile(
-              title: const Text('日期'),
+              title: Text(l10n.date),
               subtitle: Text(DateFormat('yyyy-MM-dd').format(_selectedDate)),
               trailing: const Icon(Icons.calendar_today),
               onTap: _selectDate,
@@ -299,9 +304,9 @@ class _EditTransactionPageState extends ConsumerState<EditTransactionPage>
               ),
             ),
             const SizedBox(height: 16),
-            const Text(
-              '选择类型',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            Text(
+              l10n.selectCategory,
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
             categoriesAsync.when(
@@ -357,7 +362,10 @@ class _EditTransactionPageState extends ConsumerState<EditTransactionPage>
                             ),
                             const SizedBox(height: 4),
                             Text(
-                              category.name,
+                              LocalizationUtils.getLocalizedCategoryName(
+                                context,
+                                category,
+                              ),
                               style: TextStyle(
                                 fontSize: 12,
                                 color: isSelected
@@ -376,14 +384,14 @@ class _EditTransactionPageState extends ConsumerState<EditTransactionPage>
                 );
               },
               loading: () => const Center(child: CircularProgressIndicator()),
-              error: (e, _) => Center(child: Text('加载失败: $e')),
+              error: (e, _) => Center(child: Text('${l10n.loadFailed}: $e')),
             ),
             const SizedBox(height: 16),
             TextFormField(
               controller: _noteController,
-              decoration: const InputDecoration(
-                labelText: '备注（可选）',
-                border: OutlineInputBorder(),
+              decoration: InputDecoration(
+                labelText: l10n.note,
+                border: const OutlineInputBorder(),
               ),
               maxLines: 2,
             ),
@@ -396,7 +404,7 @@ class _EditTransactionPageState extends ConsumerState<EditTransactionPage>
                       width: 20,
                       child: CircularProgressIndicator(strokeWidth: 2),
                     )
-                  : const Text('保存'),
+                  : Text(l10n.save),
             ),
           ],
         ),

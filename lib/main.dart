@@ -142,6 +142,7 @@ class _MainScreenState extends ConsumerState<MainScreen> {
   @override
   Widget build(BuildContext context) {
     final primaryColor = ref.watch(themeColorProvider);
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       extendBody: true,
       body: _screens[_currentIndex],
@@ -156,8 +157,8 @@ class _MainScreenState extends ConsumerState<MainScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                _buildNavItem(0, Icons.home, "首页", primaryColor),
-                _buildNavItem(1, Icons.pie_chart, "图表", primaryColor),
+                _buildNavItem(0, Icons.home, l10n.home, primaryColor),
+                _buildNavItem(1, Icons.pie_chart, l10n.chart, primaryColor),
                 GestureDetector(
                   onTap: _showAddScreen,
                   child: Container(
@@ -196,10 +197,10 @@ class _MainScreenState extends ConsumerState<MainScreen> {
                 _buildNavItem(
                   2,
                   Icons.account_balance_wallet,
-                  "预算",
+                  l10n.budget,
                   primaryColor,
                 ),
-                _buildNavItem(3, Icons.person, "我的", primaryColor),
+                _buildNavItem(3, Icons.person, l10n.profile, primaryColor),
               ],
             ),
           ),

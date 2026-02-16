@@ -122,7 +122,7 @@ class ProfileScreen extends ConsumerWidget {
                     },
                     loading: () =>
                         const Center(child: CircularProgressIndicator()),
-                    error: (e, _) => Center(child: Text('加载失败: $e')),
+                    error: (e, _) => Center(child: Text('${l10n.loadFailed}: $e')),
                   ),
                 ),
               ),
