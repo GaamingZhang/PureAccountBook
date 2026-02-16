@@ -1,0 +1,487 @@
+{
+  "@@locale": "zh",
+  "appName": "纯记账",
+  "@appName": {
+    "description": "应用名称"
+  },
+  "home": "主页",
+  "@home": {
+    "description": "主页标签"
+  },
+  "chart": "图表",
+  "@chart": {
+    "description": "图表标签"
+  },
+  "ranking": "排行",
+  "@ranking": {
+    "description": "排标签"
+  },
+  "settings": "设置",
+  "@settings": {
+    "description": "设置标签"
+  },
+  "addRecord": "添加记录",
+  "@addRecord": {
+    "description": "添加记录页面标题"
+  },
+  "editRecord": "编辑记录",
+  "@editRecord": {
+    "description": "编辑记录页面标题"
+  },
+  "expense": "支出",
+  "@expense": {
+    "description": "支出"
+  },
+  "income": "收入",
+  "@income": {
+    "description": "收入"
+  },
+  "amount": "金额",
+  "@amount": {
+    "description": "金额"
+  },
+  "date": "日期",
+  "@date": {
+    "description": "日期"
+  },
+  "selectCategory": "选择类型",
+  "@selectCategory": {
+    "description": "选择类型"
+  },
+  "note": "备注（可选）",
+  "@note": {
+    "description": "备注"
+  },
+  "save": "保存",
+  "@save": {
+    "description": "保存按钮"
+  },
+  "cancel": "取消",
+  "@cancel": {
+    "description": "取消按钮"
+  },
+  "delete": "删除",
+  "@delete": {
+    "description": "删除按钮"
+  },
+  "confirmDelete": "确认删除",
+  "@confirmDelete": {
+    "description": "确认删除标题"
+  },
+  "confirmDeleteMessage": "确定要删除这条记录吗？此操作不可撤销。",
+  "@confirmDeleteMessage": {
+    "description": "确认删除消息"
+  },
+  "recordDeleted": "记录已删除",
+  "@recordDeleted": {
+    "description": "记录已删除提示"
+  },
+  "saveSuccess": "保存成功",
+  "@saveSuccess": {
+    "description": "保存成功提示"
+  },
+  "noRecords": "暂无记录",
+  "@noRecords": {
+    "description": "无记录提示"
+  },
+  "addRecordHint": "点击右下角按钮添加记录",
+  "@addRecordHint": {
+    "description": "添加记录提示"
+  },
+  "categoryManage": "类型管理",
+  "@categoryManage": {
+    "description": "类型管理"
+  },
+  "expenseCategory": "支出类型",
+  "@expenseCategory": {
+    "description": "支出类型"
+  },
+  "incomeCategory": "收入类型",
+  "@incomeCategory": {
+    "description": "收入类型"
+  },
+  "addCategory": "添加类型",
+  "@addCategory": {
+    "description": "添加类型"
+  },
+  "editCategory": "编辑类型",
+  "@editCategory": {
+    "description": "编辑类型"
+  },
+  "categoryName": "类型名称",
+  "@categoryName": {
+    "description": "类型名称"
+  },
+  "selectIcon": "选择图标",
+  "@selectIcon": {
+    "description": "选择图标"
+  },
+  "defaultCategory": "默认类型",
+  "@defaultCategory": {
+    "description": "默认类型"
+  },
+  "categoryDeleted": "类型已删除",
+  "@categoryDeleted": {
+    "description": "类型已删除提示"
+  },
+  "week": "一周",
+  "@week": {
+    "description": "一周"
+  },
+  "month": "一个月",
+  "@month": {
+    "description": "一个月"
+  },
+  "threeMonths": "三个月",
+  "@threeMonths": {
+    "description": "三个月"
+  },
+  "year": "一年",
+  "@year": {
+    "description": "一年"
+  },
+  "custom": "自定义",
+  "@custom": {
+    "description": "自定义"
+  },
+  "thisWeek": "本周",
+  "@thisWeek": {
+    "description": "本周"
+  },
+  "thisMonth": "本月",
+  "@thisMonth": {
+    "description": "本月"
+  },
+  "thisYear": "本年",
+  "@thisYear": {
+    "description": "本年"
+  },
+  "balance": "结余",
+  "@balance": {
+    "description": "结余"
+  },
+  "noData": "暂无数据",
+  "@noData": {
+    "description": "无数据提示"
+  },
+  "noNote": "无备注",
+  "@noNote": {
+    "description": "无备注"
+  },
+  "pleaseSelectCategory": "请选择类型",
+  "@pleaseSelectCategory": {
+    "description": "请选择类型提示"
+  },
+  "pleaseEnterAmount": "请输入金额",
+  "@pleaseEnterAmount": {
+    "description": "请输入金额提示"
+  },
+  "pleaseEnterValidAmount": "请输入有效金额",
+  "@pleaseEnterValidAmount": {
+    "description": "请输入有效金额提示"
+  },
+  "pleaseEnterCategoryName": "请输入类型名称",
+  "@pleaseEnterCategoryName": {
+    "description": "请输入类型名称提示"
+  },
+  "language": "语言",
+  "@language": {
+    "description": "语言设置"
+  },
+  "theme": "主题",
+  "@theme": {
+    "description": "主题设置"
+  },
+  "darkMode": "深色模式",
+  "@darkMode": {
+    "description": "深色模式"
+  },
+  "followSystem": "跟随系统",
+  "@followSystem": {
+    "description": "跟随系统"
+  },
+  "light": "浅色",
+  "@light": {
+    "description": "浅色模式"
+  },
+  "dark": "深色",
+  "@dark": {
+    "description": "深色模式"
+  },
+  "budget": "预算",
+  "@budget": {
+    "description": "预算"
+  },
+  "setBudget": "设置预算",
+  "@setBudget": {
+    "description": "设置预算"
+  },
+  "editBudget": "编辑预算",
+  "@editBudget": {
+    "description": "编辑预算"
+  },
+  "clearBudget": "清除预算",
+  "@clearBudget": {
+    "description": "清除预算"
+  },
+  "budgetAmount": "预算金额",
+  "@budgetAmount": {
+    "description": "预算金额"
+  },
+  "totalSpent": "已支出",
+  "@totalSpent": {
+    "description": "已支出"
+  },
+  "remaining": "剩余",
+  "@remaining": {
+    "description": "剩余"
+  },
+  "progress": "进度",
+  "@progress": {
+    "description": "进度"
+  },
+  "overBudget": "已超出预算",
+  "@overBudget": {
+    "description": "已超出预算"
+  },
+  "about": "关于",
+  "@about": {
+    "description": "关于"
+  },
+  "aboutApp": "关于纯记账",
+  "@aboutApp": {
+    "description": "关于纯记账"
+  },
+  "version": "版本",
+  "@version": {
+    "description": "版本"
+  },
+  "localData": "纯本地数据",
+  "@localData": {
+    "description": "纯本地数据"
+  },
+  "localDataDesc": "所有数据仅存储在您的设备本地，不会上传到任何服务器。您的隐私数据完全由您自己掌控。",
+  "@localDataDesc": {
+    "description": "纯本地数据说明"
+  },
+  "noNetwork": "无联网功能",
+  "@noNetwork": {
+    "description": "无联网功能"
+  },
+  "noNetworkDesc": "本应用无需网络连接即可正常使用，不包含任何联网功能，确保您的数据安全。",
+  "@noNetworkDesc": {
+    "description": "无联网功能说明"
+  },
+  "noAds": "纯净无广告",
+  "@noAds": {
+    "description": "纯净无广告"
+  },
+  "noAdsDesc": "应用内不含任何广告，为您提供清爽、专注的记账体验。",
+  "@noAdsDesc": {
+    "description": "纯净无广告说明"
+  },
+  "copyright": "版权声明",
+  "@copyright": {
+    "description": "版权声明"
+  },
+  "profile": "我的",
+  "@profile": {
+    "description": "我的"
+  },
+  "user": "用户",
+  "@user": {
+    "description": "用户"
+  },
+  "recordDays": "记账天数",
+  "@recordDays": {
+    "description": "记账天数"
+  },
+  "totalRecords": "总记账笔数",
+  "@totalRecords": {
+    "description": "总记账笔数"
+  },
+  "days": "天",
+  "@days": {
+    "description": "天"
+  },
+  "records": "笔",
+  "@records": {
+    "description": "笔"
+  },
+  "themeSettings": "主题设置",
+  "@themeSettings": {
+    "description": "主题设置"
+  },
+  "themeMode": "主题模式",
+  "@themeMode": {
+    "description": "主题模式"
+  },
+  "themeColor": "主题色",
+  "@themeColor": {
+    "description": "主题色"
+  },
+  "lightMode": "浅色模式",
+  "@lightMode": {
+    "description": "浅色模式"
+  },
+  "pleaseEnterBudget": "请输入预算金额",
+  "@pleaseEnterBudget": {
+    "description": "请输入预算金额"
+  },
+  "confirmClear": "确定要清除本月预算吗？",
+  "@confirmClear": {
+    "description": "确定要清除本月预算吗？"
+  },
+  "saveChanges": "保存修改",
+  "@saveChanges": {
+    "description": "保存修改"
+  },
+  "confirm": "确认设置",
+  "@confirm": {
+    "description": "确认设置"
+  },
+  "upgradingData": "正在升级数据",
+  "@upgradingData": {
+    "description": "正在升级数据"
+  },
+  "doNotClose": "请勿关闭应用...",
+  "@doNotClose": {
+    "description": "请勿关闭应用..."
+  },
+  "safeUpgrade": "数据安全升级中",
+  "@safeUpgrade": {
+    "description": "数据安全升级中"
+  },
+  "selectStartDate": "选择开始日期",
+  "@selectStartDate": {
+    "description": "选择开始日期"
+  },
+  "selectEndDate": "选择结束日期",
+  "@selectEndDate": {
+    "description": "选择结束日期"
+  },
+  "startDateAfterEndDate": "开始日期不能晚于结束日期",
+  "@startDateAfterEndDate": {
+    "description": "开始日期不能晚于结束日期"
+  },
+  "back": "返回",
+  "@back": {
+    "description": "返回"
+  },
+  "goodMorning": "早上好",
+  "@goodMorning": {
+    "description": "早上好"
+  },
+  "goodAfternoon": "下午好",
+  "@goodAfternoon": {
+    "description": "下午好"
+  },
+  "goodEvening": "晚上好",
+  "@goodEvening": {
+    "description": "晚上好"
+  },
+  "welcomeText": "这里是纯记账",
+  "@welcomeText": {
+    "description": "欢迎文字"
+  },
+  "searchHint": "搜索类别或备注...",
+  "@searchHint": {
+    "description": "搜索提示"
+  },
+  "search": "搜索",
+  "@search": {
+    "description": "搜索"
+  },
+  "searchResult": "搜索结果",
+  "@searchResult": {
+    "description": "搜索结果"
+  },
+  "recordList": "记账记录",
+  "@recordList": {
+    "description": "记账记录"
+  },
+  "all": "全部",
+  "@all": {
+    "description": "全部"
+  },
+  "totalIncome": "总收入",
+  "@totalIncome": {
+    "description": "总收入"
+  },
+  "totalExpense": "总支出",
+  "@totalExpense": {
+    "description": "总支出"
+  },
+  "incomeLabel": "收入:",
+  "@incomeLabel": {
+    "description": "收入标签"
+  },
+  "expenseLabel": "支出:",
+  "@expenseLabel": {
+    "description": "支出标签"
+  },
+  "noRecordsYet": "暂无记账记录",
+  "@noRecordsYet": {
+    "description": "暂无记账记录"
+  },
+  "noMatchFound": "未找到匹配的记录",
+  "@noMatchFound": {
+    "description": "未找到匹配的记录"
+  },
+  "tryOtherKeywords": "尝试更换搜索关键词",
+  "@tryOtherKeywords": {
+    "description": "尝试更换搜索关键词"
+  },
+  "addFirstRecord": "点击下方 + 按钮添加第一笔记账",
+  "@addFirstRecord": {
+    "description": "添加第一笔记账提示"
+  },
+  "monthSummary": "月摘要",
+  "@monthSummary": {
+    "description": "月摘要"
+  },
+  "languageSettings": "语言设置",
+  "@languageSettings": {
+    "description": "语言设置"
+  },
+  "followSystemLanguage": "跟随系统",
+  "@followSystemLanguage": {
+    "description": "跟随系统语言"
+  },
+  "themeSettings": "主题设置",
+  "@themeSettings": {
+    "description": "主题设置"
+  },
+  "aboutPureBook": "关于纯记账",
+  "@aboutPureBook": {
+    "description": "关于纯记账"
+  },
+  "slogan": "记录您的财富增长",
+  "@slogan": {
+    "description": "应用标语"
+  },
+  "today": "今天",
+  "@today": {
+    "description": "今天"
+  },
+  "yesterday": "昨天",
+  "@yesterday": {
+    "description": "昨天"
+  },
+  "applyToAllMonths": "应用到所有月份",
+  "@applyToAllMonths": {
+    "description": "应用到所有月份"
+  },
+  "applyToAllMonthsDesc": "将当前预算应用到所有月份",
+  "@applyToAllMonthsDesc": {
+    "description": "将当前预算应用到所有月份说明"
+  },
+  "applySuccess": "应用成功",
+  "@applySuccess": {
+    "description": "应用成功"
+  },
+  "budgetAppliedToAllMonths": "预算已应用到所有月份",
+  "@budgetAppliedToAllMonths": {
+    "description": "预算已应用到所有月份"
+  }
+}
