@@ -2,7 +2,7 @@
 
 一款简洁、高效的个人记账应用，专注于帮助用户轻松管理日常收支。
 
-> 本项目使用 [Trae IDE](https://www.trae.ai/) 和 [GLM-5](https://www.zhipuai.cn/) AI 模型完成开发。
+> 本项目使用 [Trae IDE](https://www.trae.ai/) 和 [GLM-5](https://www.zhipuai.cn/) AI 模型在24小时内完成开发。
 
 ## 应用截图
 
